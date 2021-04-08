@@ -101,13 +101,16 @@ window.addEventListener("DOMContentLoaded", function () {
     modalCloseBtn = document.querySelector("[data-close]");
 
   modalTrigger.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      modal.classList.add("show");
-      modal.classList.remove("hide"), 
-      document.body.style.overflow = "hidden";
-      // modal without scroll
-    });
+    btn.addEventListener("click", openModal);
   }); // iteration of array for adding event listener
+
+  function openModal() {
+    modal.classList.add("show");
+    modal.classList.remove("hide");
+    document.body.style.overflow = "hidden";
+    clearInterval(modalTimerId);
+    // modal without scroll
+  }
 
   function closeModal() {
     modal.classList.add("hide");
@@ -125,9 +128,23 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.code === "Escape" && modal.classList.contains('show')) {
+    if (e.code === "Escape" && modal.classList.contains("show")) {
       closeModal();
     }
     // if Esc is pushed modal will be closed
   });
+
+  const modalTimerId = setTimeout(openModal, 3000);
+
+function showModalByScroll() {
+  if (window.pageYOffset + document.documentElement.     clientHeight >= document.documentElement.scrollHeight){
+    openModal();
+    window.removeEventListener('scroll', showModalByScroll);
+  }
+}
+// show modal after scroll to the end of the page
+
+  window.addEventListener('scroll', showModalByScroll); 
+  // don't show modal after one scroll to the end of the page
+
 });
