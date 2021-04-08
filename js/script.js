@@ -93,4 +93,41 @@ window.addEventListener("DOMContentLoaded", function () {
     }
   }
   setClock(".timer", deadline);
+
+  // Modal
+
+  const modalTrigger = document.querySelectorAll("[data-modal]"),
+    modal = document.querySelector(".modal"),
+    modalCloseBtn = document.querySelector("[data-close]");
+
+  modalTrigger.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modal.classList.add("show");
+      modal.classList.remove("hide"), 
+      document.body.style.overflow = "hidden";
+      // modal without scroll
+    });
+  }); // iteration of array for adding event listener
+
+  function closeModal() {
+    modal.classList.add("hide");
+    modal.classList.remove("show");
+    document.body.style.overflow = "";
+  } // DRY
+
+  modalCloseBtn.addEventListener("click", closeModal); // don't call for the function
+  // return scroll on the page
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.code === "Escape" && modal.classList.contains('show')) {
+      closeModal();
+    }
+    // if Esc is pushed modal will be closed
+  });
 });
