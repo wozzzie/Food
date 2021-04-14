@@ -62,9 +62,8 @@ window.addEventListener("DOMContentLoaded", function () {
   function getZero(num) {
     if (num >= 0 && num < 10) {
       return "0" + num;
-    } else {
-      return num;
     }
+    return num;
   }
 
   function setClock(selector, endtime) {
@@ -212,4 +211,14 @@ window.addEventListener("DOMContentLoaded", function () {
     21,
     ".menu .container"
   ).render();
+
+// Forms
+
+
+
+
+
+
+
+
 });
